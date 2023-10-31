@@ -72,5 +72,8 @@ int main() {
         doTick();
     }
 
+    printStatistics();
+    destroyTasks(terminatedQueue);
+
     return 0;
 }
