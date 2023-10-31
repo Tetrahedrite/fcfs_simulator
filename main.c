@@ -22,11 +22,36 @@ void printTasks(struct NODE *taskList) {
 }
 
 void doTick() {
+    // Increase running task working time
+    if (runQueue != NULL)
+        runQueue->workingTime++;
+
+    // Terminate if run task working time is greater than the working time
+    if (runQueue != NULL && runQueue->workingTime >= runQueue->task) {
+        runQueue->returnTime = tick;
+        insertToLast(&terminatedQueue, runQueue);
+        runQueue = NULL;
+    }
+
+    // Increase ready task wait time
+    struct NODE *readyTask = readyQueue;
+    while (readyTask != NULL) {
+        readyTask->waitTime++;
+        readyTask = readyTask->next;
+    }
+
     // If ready queue is empty and current tick is greater than the arrival time of the first task in the task list...
-    if (readyQueue == NULL && tick > taskListQueue->arrivalTime) {
-        readyQueue = taskListQueue;
-        taskListQueue = taskListQueue->next;
-        readyQueue->next = NULL;
+    while (taskListQueue != NULL && tick >= taskListQueue->arrivalTime) {
+        struct NODE *temp = taskListQueue->next;
+        insertToLast(&readyQueue, taskListQueue);
+        taskListQueue = temp;
+    }
+
+    // Execute the first ready task
+    if (readyQueue != NULL && runQueue == NULL) {
+        runQueue = readyQueue;
+        readyQueue = readyQueue->next;
+        runQueue->next = NULL;
     }
 
     if (taskListQueue == NULL && runQueue == NULL && readyQueue == NULL)
