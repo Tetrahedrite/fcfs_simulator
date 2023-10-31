@@ -7,7 +7,19 @@
 
 static int shouldStop = 0;
 
-static struct NODE *taskListQueue, readyQueue, runQueue, terminatedQueue;
+static struct NODE *taskListQueue, *readyQueue, *runQueue, *terminatedQueue;
+
+void printTasks(struct NODE *taskList) {
+    // Print all the taskList
+    puts("Task List: ");
+    while (taskList != NULL) {
+        printf("  PID: %d, TaskTime: %d, ArrivalTime: %d, WorkingTime: %d, WaitTime: %d, ReturnTime: %d\n",
+               taskList->nodePid, taskList->task, taskList->arrivalTime,
+               taskList->workingTime, taskList->waitTime, taskList->returnTime);
+        taskList = taskList->next;
+    }
+    fputs("\n", stdout);
+}
 
 void doTick() {
     // Print all the tasks
@@ -18,6 +30,11 @@ void doTick() {
                current->workingTime, current->waitTime, current->returnTime);
         current = current->next;
     }
+
+    printTasks(taskListQueue);
+    printTasks(readyQueue);
+    printTasks(runQueue);
+    printTasks(terminatedQueue);
     while (getchar() != '\n');
 }
 
