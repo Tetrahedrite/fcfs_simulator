@@ -45,6 +45,21 @@ void doTick() {
     tick++;
 }
 
+void printStatistics() {
+    unsigned int taskCount = 0, totalWaitingTime = 0;
+    double averageWaitingTime;
+    while (terminatedQueue != NULL) {
+        taskCount++;
+        totalWaitingTime += terminatedQueue->waitTime;
+        terminatedQueue = terminatedQueue->next;
+    }
+    averageWaitingTime = (double)totalWaitingTime / taskCount;
+
+    printf("Total Tasks : %u\n", taskCount);
+    printf("Total Waiting Time : %u\n", totalWaitingTime);
+    printf("Average Waiting Time : %.2lf\n", averageWaitingTime);
+}
+
 int main() {
     if (!initTasks(&taskListQueue, randNumber())) {
         perror("initTasks");
