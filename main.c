@@ -6,22 +6,16 @@
 
 static int shouldStop = 0;
 
-void signalHandler(int sig) {
-    printf("\nGot signal: %d\n", sig);
-    exit(1);
-}
-
 void doTick() {
     while (getchar() != '\n');
 }
 
 int main() {
-    signal(SIGINT, signalHandler);
-    puts("FCFS simulator by Jisu Yu");
-    PRINT_CLEAR_SEQUENCE();
-
-    while (!shouldStop)
+    while (!shouldStop) {
+        PRINT_CLEAR_SEQUENCE();
+        puts("FCFS simulator by Jisu Yu");
         doTick();
+    }
 
     return 0;
 }
