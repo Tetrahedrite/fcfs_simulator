@@ -4,10 +4,10 @@
 #include "requirement.h"
 #include "list.h"
 
-int initTasks(struct NODE** head, int count) {
+int initTasks(struct NODE **head, int count) {
     srand(time(NULL));
     for (int i = 0; i < count; i++) {
-        struct NODE* newNode = (struct NODE*)calloc(sizeof(struct NODE), 1);
+        struct NODE *newNode = (struct NODE *) calloc(sizeof(struct NODE), 1);
         assert(newNode != NULL);
         newNode->nodePid = i + 1;
         newNode->task = randNumber() % 10;
@@ -22,21 +22,21 @@ int randNumber() {
     return rand() % 10;
 }
 
-void destroyTasks(struct NODE* head) {
+void destroyTasks(struct NODE *head) {
     while (head != NULL) {
-        struct NODE* temp = head;
+        struct NODE *temp = head;
         head = head->next;
         free(temp);
     }
 }
 
-void insertSorted(struct NODE** head, struct NODE* newNode) {
+void insertSorted(struct NODE **head, struct NODE *newNode) {
     if (*head == NULL) {
         *head = newNode;
         return;
     }
-    struct NODE* temp = *head;
-    struct NODE* prev = *head;
+    struct NODE *temp = *head;
+    struct NODE *prev = *head;
     // temp가 NULL이 아니고 새로운 노드가 기존 노드보다 크면
     while (temp != NULL && temp->arrivalTime < newNode->arrivalTime) {
         prev = temp; // prev에 이전 노드 저장
