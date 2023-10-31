@@ -39,6 +39,7 @@ void insertToLast(struct NODE **head, struct NODE *newNode) {
             temp = temp->next;
         }
         temp->next = newNode;
+        newNode->next = NULL;
     }
 }
 
