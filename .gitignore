@@ -53,3 +53,9 @@ dkms.conf
 
 # VSCode auto-generated files
 .vscode/settings.json
+
+# CMake build
+cmake-build*/
+
+# IntelliJ platform auto-generated files
+.idea/
