@@ -30,6 +30,18 @@ void destroyTasks(struct NODE *head) {
     }
 }
 
+void insertToLast(struct NODE **head, struct NODE *newNode) {
+    if (*head == NULL) {
+        *head = newNode;
+    } else {
+        struct NODE *temp = *head;
+        while (temp->next != NULL) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
 void insertSorted(struct NODE **head, struct NODE *newNode) {
     if (*head == NULL) {
         *head = newNode;
