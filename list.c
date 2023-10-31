@@ -10,8 +10,8 @@ int initTasks(struct NODE **head, int count) {
         struct NODE *newNode = (struct NODE *) calloc(sizeof(struct NODE), 1);
         assert(newNode != NULL);
         newNode->nodePid = i + 1;
-        newNode->task = randNumber() % 10;
-        newNode->arrivalTime = randNumber() % 10;
+        newNode->task = randNumber();
+        newNode->arrivalTime = randNumber();
         insertSorted(head, newNode);
     }
 
@@ -37,6 +37,7 @@ void insertSorted(struct NODE **head, struct NODE *newNode) {
     }
     struct NODE *temp = *head;
     struct NODE *prev = *head;
+
     // temp가 NULL이 아니고 새로운 노드가 기존 노드보다 크면
     while (temp != NULL && temp->arrivalTime < newNode->arrivalTime) {
         prev = temp; // prev에 이전 노드 저장
