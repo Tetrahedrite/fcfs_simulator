@@ -6,6 +6,7 @@
 #define PRINT_CLEAR_SEQUENCE() puts("\033[H\033[J")
 
 static int shouldStop = 0;
+static int tick = 0;
 
 static struct NODE *taskListQueue, *readyQueue, *runQueue, *terminatedQueue;
 
@@ -22,13 +23,11 @@ void printTasks(struct NODE *taskList) {
 }
 
 void doTick() {
-    // Print all the tasks
-    struct NODE *current = taskListQueue;
-    while (current != NULL) {
-        printf("PID: %d, TaskTime: %d, ArrivalTime: %d, WorkingTime: %d, WaitTime: %d, ReturnTime: %d\n",
-               current->nodePid, current->task, current->arrivalTime,
-               current->workingTime, current->waitTime, current->returnTime);
-        current = current->next;
+    // If ready queue is empty and current tick is greater than the arrival time of the first task in the task list...
+    if (readyQueue == NULL && tick > taskListQueue->arrivalTime) {
+        readyQueue = taskListQueue;
+        taskListQueue = taskListQueue->next;
+        readyQueue->next = NULL;
     }
 
     printTasks(taskListQueue);
@@ -36,6 +35,7 @@ void doTick() {
     printTasks(runQueue);
     printTasks(terminatedQueue);
     while (getchar() != '\n');
+    tick++;
 }
 
 int main() {
@@ -46,7 +46,7 @@ int main() {
 
     while (!shouldStop) {
         PRINT_CLEAR_SEQUENCE();
-        puts("FCFS simulator by Jisu Yu");
+        printf("FCFS simulator by Jisu Yu - Current tick: %d\n\n", tick);
         doTick();
     }
 
