@@ -19,7 +19,7 @@ int initTasks(struct NODE **head, int count) {
 }
 
 int randNumber() {
-    return rand() % 10;
+    return 1 + rand() % 10;
 }
 
 void destroyTasks(struct NODE *head) {
