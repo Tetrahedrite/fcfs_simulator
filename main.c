@@ -29,6 +29,9 @@ void doTick() {
         readyQueue->next = NULL;
     }
 
+    if (taskListQueue == NULL && runQueue == NULL && readyQueue == NULL)
+        shouldStop = 1;
+
     puts("Task List Queue: ");
     printTasks(taskListQueue);
     puts("Ready Queue: ");
