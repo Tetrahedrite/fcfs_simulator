@@ -1,11 +1,9 @@
 #include <stdlib.h>
-#include <time.h>
 #include <assert.h>
 #include "requirement.h"
 #include "list.h"
 
 int initTasks(struct NODE **head, int count) {
-    srand(time(NULL));
     for (int i = 0; i < count; i++) {
         struct NODE *newNode = (struct NODE *) calloc(sizeof(struct NODE), 1);
         assert(newNode != NULL);

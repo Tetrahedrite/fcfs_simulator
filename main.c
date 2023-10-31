@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "requirement.h"
 #include "list.h"
 
@@ -86,6 +87,8 @@ void printStatistics() {
 }
 
 int main() {
+    srand(time(NULL));
+
     if (!initTasks(&taskListQueue, randNumber())) {
         perror("initTasks");
         exit(1);
