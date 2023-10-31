@@ -12,7 +12,6 @@ static struct NODE *taskListQueue, *readyQueue, *runQueue, *terminatedQueue;
 
 void printTasks(struct NODE *taskList) {
     // Print all the taskList
-    puts("Task List: ");
     while (taskList != NULL) {
         printf("  PID: %d, TaskTime: %d, ArrivalTime: %d, WorkingTime: %d, WaitTime: %d, ReturnTime: %d\n",
                taskList->nodePid, taskList->task, taskList->arrivalTime,
@@ -30,10 +29,15 @@ void doTick() {
         readyQueue->next = NULL;
     }
 
+    puts("Task List Queue: ");
     printTasks(taskListQueue);
+    puts("Ready Queue: ");
     printTasks(readyQueue);
+    puts("Run Queue: ");
     printTasks(runQueue);
+    puts("Terminated Queue: ");
     printTasks(terminatedQueue);
+
     while (getchar() != '\n');
     tick++;
 }
