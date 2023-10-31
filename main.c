@@ -46,7 +46,7 @@ void doTick() {
 }
 
 int main() {
-    if (!initTasks(&taskListQueue, 10)) {
+    if (!initTasks(&taskListQueue, randNumber())) {
         perror("initTasks");
         exit(1);
     }
